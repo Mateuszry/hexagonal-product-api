@@ -1,0 +1,15 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->in('./src')
+    ->exclude('migrations')
+    ->in('./tests');
+
+return PhpCsFixer\Config::create()
+    ->setRules([
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'declare_strict_types' => true,
+        'php_unit_mock_short_will_return' => true
+    ])
+    ->setFinder($finder);

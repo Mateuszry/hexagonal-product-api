@@ -1,0 +1,10 @@
+fos_rest:
+    allowed_methods_listener:  true
+    body_listener: true
+    routing_loader: false
+    body_converter:
+        enabled: true
+        validate: true
+    format_listener:
+        rules:
+            - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json ] }
