@@ -123,7 +123,7 @@ class ProductControllerTest extends ControllerTestCase
     public function testCreateProductInvalidContentTypes(): void
     {
         $content = [
-            'name' => Base::randomNumber(),
+            'name' => Base::randomNumber(2),
             'price' => Base::randomLetter(),
         ];
 

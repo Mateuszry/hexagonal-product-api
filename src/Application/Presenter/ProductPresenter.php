@@ -6,10 +6,16 @@ namespace App\Application\Presenter;
 
 use App\Domain\Entity\Product as DomainProduct;
 
-class ProductPresenter extends Presenter
+class ProductPresenter implements DataPresenterInterface
 {
+    public string $id;
+    public string $name;
+    public int $price;
+
     public function __construct(DomainProduct $product)
     {
-        parent::__construct(new Product($product));
+        $this->id = $product->id;
+        $this->name = $product->name;
+        $this->price = $product->price;
     }
 }
