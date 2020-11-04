@@ -17,3 +17,7 @@ It is a REST API project in Symfony 5 written in PHP 7.4 with 8.0 MYSQL database
 ## Database
 - `make database-migrate` - execute migrations
 - `make database-diff` - check differences between current database schema and models to create proper migrations
+
+## Development
+- `make cache-clear` - clear cache
+- `make enter` - enter via bash to PHP & nginx container
