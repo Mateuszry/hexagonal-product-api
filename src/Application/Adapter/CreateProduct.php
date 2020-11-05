@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Application\Adapter;
 
+use App\Domain\Port\CreateProductInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class CreateProduct
+class CreateProduct implements CreateProductInterface
 {
     /**
      * @Assert\Type("string")
@@ -21,4 +22,14 @@ class CreateProduct
      * @Assert\PositiveOrZero()
      */
     public $price;
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getPrice()
+    {
+        return $this->price;
+    }
 }

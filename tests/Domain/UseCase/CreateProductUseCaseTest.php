@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\UseCase;
 
-use App\Application\Adapter\CreateProduct;
 use App\Domain\Entity\Product;
+use App\Domain\Port\CreateProductInterface;
 use App\Domain\Port\ProductGatewayInterface;
 use App\Domain\UseCase\CreateProductUseCase;
 use Faker\Provider\Base;
@@ -32,9 +32,9 @@ class CreateProductUseCaseTest extends TestCase
 
     private function getCreateProductStub(?string $name, ?int $price): Stub
     {
-        $stub = $this->createStub(CreateProduct::class);
-        $stub->price = $price;
-        $stub->name = $name;
+        $stub = $this->createStub(CreateProductInterface::class);
+        $stub->method('getPrice')->willReturn($price);
+        $stub->method('getName')->willReturn($name);
 
         return $stub;
     }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\UseCase;
 
-use App\Application\Adapter\CreateProduct;
 use App\Domain\Entity\Product;
+use App\Domain\Port\CreateProductInterface;
 use App\Domain\Port\ProductGatewayInterface;
 
 class CreateProductUseCase
@@ -17,9 +17,9 @@ class CreateProductUseCase
         $this->productGateway = $productGateway;
     }
 
-    public function create(CreateProduct $createProduct): Product
+    public function create(CreateProductInterface $createProduct): Product
     {
-        $product = new Product($createProduct->name, $createProduct->price);
+        $product = new Product($createProduct->getName(), $createProduct->getPrice());
         $this->productGateway->save($product);
 
         return $product;
