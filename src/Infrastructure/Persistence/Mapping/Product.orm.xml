@@ -5,10 +5,7 @@
 
     <entity name="App\Domain\Entity\Product" table="product" repository-class="App\Infrastructure\Persistence\Doctrine\Repository\ProductRepository">
 
-        <id name="id" column="id" type="uuid">
-            <generator strategy="CUSTOM"/>
-            <custom-id-generator class="Ramsey\Uuid\Doctrine\UuidGenerator"/>
-        </id>
+        <id name="id" column="id" type="string"/>
 
         <field name="name" column="name" length="255"/>
         <field name="price" column="price" type="integer"/>

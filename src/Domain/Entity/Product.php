@@ -6,13 +6,44 @@ namespace App\Domain\Entity;
 
 class Product
 {
-    public string $id;
-    public string $name;
-    public int $price;
+    private string $id;
+    private string $name;
+    private int $price;
 
-    public function __construct(string $name, int $price)
+    public function __construct(string $id, string $name, float $price)
     {
+        $this->id = $id;
         $this->name = $name;
-        $this->price = $price;
+        $this->price = $this->convertToCents($price);
+    }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getPriceInDollars(): float
+    {
+        return $this->convertToDollars($this->price);
+    }
+
+    public function getPriceInCents(): int
+    {
+        return $this->price;
+    }
+
+    private function convertToCents(float $price): int
+    {
+        return (int) ($price * 100);
+    }
+
+    private function convertToDollars(int $price): float
+    {
+        return (float) ($price / 100);
     }
 }

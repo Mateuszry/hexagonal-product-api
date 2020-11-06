@@ -4,32 +4,29 @@ declare(strict_types=1);
 
 namespace App\Application\Controller;
 
-use App\Application\Adapter\CreateProduct;
-use App\Application\Presenter\ProductPresenter;
-use App\Domain\UseCase\CreateProductUseCase;
+use App\Application\Command\CreateProductCommand;
+use App\Application\Query\GetProductQuery;
+use App\Domain\Port\Command\CommandBusGatewayInterface;
+use App\Domain\Port\Query\QueryBusGatewayInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as FOSRest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class ProductController extends AbstractFOSRestController
 {
     /**
      * @FOSRest\Post("product")
-     * @ParamConverter("createProduct", converter="fos_rest.request_body")
+     * @ParamConverter("createProductCommand", converter="fos_rest.request_body")
      */
     public function createAction(
-        CreateProduct $createProduct,
-        CreateProductUseCase $createProductUseCase,
-        ConstraintViolationListInterface $validationErrors
+        CreateProductCommand $createProductCommand,
+        CommandBusGatewayInterface $commandBusGateway,
+        QueryBusGatewayInterface $queryBusGateway
     ): Response {
-        if (count($validationErrors) > 0) {
-            return $this->handleView($this->view($validationErrors, Response::HTTP_BAD_REQUEST));
-        }
+        $commandBusGateway->dispatch($createProductCommand);
+        $presenter = $queryBusGateway->ask(new GetProductQuery($createProductCommand->getId()));
 
-        $product = $createProductUseCase->create($createProduct);
-
-        return $this->handleView($this->view(new ProductPresenter($product), Response::HTTP_CREATED));
+        return $this->handleView($this->view($presenter, Response::HTTP_CREATED));
     }
 }

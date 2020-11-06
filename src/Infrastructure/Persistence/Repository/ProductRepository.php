@@ -21,4 +21,9 @@ class ProductRepository extends ServiceEntityRepository implements ProductGatewa
         $this->getEntityManager()->persist($product);
         $this->getEntityManager()->flush();
     }
+
+    public function findById(string $id): ?Product
+    {
+        return $this->find($id);
+    }
 }

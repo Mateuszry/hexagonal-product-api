@@ -10,12 +10,12 @@ class ProductPresenter implements DataPresenterInterface
 {
     public string $id;
     public string $name;
-    public int $price;
+    public float $price;
 
     public function __construct(DomainProduct $product)
     {
-        $this->id = $product->id;
-        $this->name = $product->name;
-        $this->price = $product->price;
+        $this->id = $product->getId();
+        $this->name = $product->getName();
+        $this->price = $product->getPriceInDollars();
     }
 }

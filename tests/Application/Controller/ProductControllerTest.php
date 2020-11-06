@@ -14,7 +14,7 @@ class ProductControllerTest extends ControllerTestCase
     public function testProductCreated(): void
     {
         $name = Lorem::word();
-        $price = Base::randomNumber();
+        $price = Base::randomFloat(2, 0, 10000);
 
         $content = [
             'name' => $name,
@@ -28,7 +28,7 @@ class ProductControllerTest extends ControllerTestCase
           "data": {
             "id": "@uuid@",
             "name": "@string@",
-            "price": "@integer@"
+            "price": "@double@"
           }
         }
         ');
@@ -58,7 +58,7 @@ class ProductControllerTest extends ControllerTestCase
     {
         $content = [
             'name' => Lorem::word(),
-            'price' => Base::numberBetween(-10000, -1),
+            'price' => Base::randomFloat(2, -10000, -1),
         ];
 
         $this->sendRequest(Request::METHOD_POST, 'product', $content);
@@ -80,7 +80,7 @@ class ProductControllerTest extends ControllerTestCase
     {
         $content = [
             'name' => Base::randomLetter(),
-            'price' => Base::randomNumber(),
+            'price' => Base::randomFloat(2),
         ];
 
         $this->sendRequest(Request::METHOD_POST, 'product', $content);
@@ -102,7 +102,7 @@ class ProductControllerTest extends ControllerTestCase
     {
         $content = [
             'name' => str_repeat(Base::randomLetter(), 256),
-            'price' => Base::randomNumber(),
+            'price' => Base::randomFloat(2),
         ];
 
         $this->sendRequest(Request::METHOD_POST, 'product', $content);
@@ -137,7 +137,7 @@ class ProductControllerTest extends ControllerTestCase
                 "This value should be of type string."
               ],
               "price": [
-                "This value should be of type int."
+                "This value should be of type float."
               ]
             }
           }

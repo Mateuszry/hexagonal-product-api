@@ -4,7 +4,6 @@ fos_rest:
     routing_loader: false
     body_converter:
         enabled: true
-        validate: true
     format_listener:
         rules:
             - { path: ^/, prefer_extension: true, fallback_format: json, priorities: [ json ] }

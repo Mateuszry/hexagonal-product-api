@@ -9,4 +9,6 @@ use App\Domain\Entity\Product;
 interface ProductGatewayInterface
 {
     public function save(Product $product): void;
+
+    public function findById(string $id): ?Product;
 }
